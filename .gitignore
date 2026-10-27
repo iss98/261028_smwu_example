@@ -1,0 +1,6 @@
+# Student data exports
+handwriting_mouse_*.json
+
+# Local planning and editable stimulus source
+DESIGN.md
+assets/spot-the-difference.svg

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#edf3f1" />
+    <meta name="description" content="학생 아이디 입력과 문장 따라 쓰기 과제" />
+    <title>아이디 입력 | 관찰 기록실</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="brand" aria-label="관찰 기록실">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" fill="none">
+              <path d="M5 25.5c5.5-13 9.2-15.3 12.2-10.7 2.4 3.6-2.4 12.7 2.7 13 3.4.2 6.3-8.2 11.1-17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="30.5" cy="10.5" r="2.4" fill="currentColor"/>
+            </svg>
+          </span>
+          <span>관찰 기록실</span>
+        </div>
+        <span class="header-note">대학생 참여 과제</span>
+      </header>
+
+      <main id="app-main" class="main-layout">
+        <section id="entry-panel" class="entry-panel" aria-labelledby="page-title">
+          <div id="login-view">
+            <div class="section-marker"><span class="marker-line"></span> 시작 전 확인</div>
+            <h1 id="page-title">아이디를<br />입력해 주세요.</h1>
+            <p class="lead">이 아이디로 두 과제의 기록을 하나의 파일에 묶습니다. 비밀번호는 필요하지 않습니다.</p>
+
+            <form id="login-form" novalidate>
+              <label for="student-id">학생 아이디</label>
+              <div class="input-wrap">
+                <input
+                  id="student-id"
+                  name="studentId"
+                  type="text"
+                  placeholder="아이디 입력"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  maxlength="64"
+                  aria-describedby="id-help id-error"
+                  required
+                />
+              </div>
+              <p id="id-help" class="field-help">입력한 아이디는 마지막에 다운로드하는 JSON 파일에 포함됩니다.</p>
+              <p id="id-error" class="field-error" role="alert" hidden></p>
+              <button class="primary-button" type="submit">
+                <span>아이디 확인</span>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </form>
+
+            <div class="task-preview" aria-label="진행할 과제">
+              <p>진행할 과제</p>
+              <ol>
+                <li><span class="task-number">1</span><span>문장 따라 쓰기</span></li>
+                <li><span class="task-number">2</span><span>틀린 그림 찾기</span></li>
+              </ol>
+            </div>
+          </div>
+
+          <div id="ready-view" class="ready-view" hidden aria-labelledby="ready-title">
+            <div class="section-marker"><span class="marker-line"></span> 아이디 확인 완료</div>
+            <div class="ready-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5"/><path d="m14 24 7 7 13-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h1 id="ready-title" tabindex="-1">아이디가<br />확인되었습니다.</h1>
+            <p class="lead">아래 아이디가 과제 기록에 사용됩니다.</p>
+            <div class="confirmed-id"><span>학생 아이디</span><strong id="confirmed-id"></strong></div>
+            <p class="next-note">준비가 되면 문장 따라 쓰기를 시작해 주세요. 시작할 때부터 시간이 기록됩니다.</p>
+            <button id="start-writing" class="primary-button" type="button">
+              <span>문장 따라 쓰기 시작</span>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button id="change-id" class="secondary-button" type="button">아이디 바꾸기</button>
+          </div>
+        </section>
+
+        <aside id="visual-panel" class="visual-panel" aria-label="과제 기록 방식 안내">
+          <div class="visual-inner">
+            <div class="visual-heading">
+              <span class="visual-index">기록의 흐름</span>
+              <p>손글씨의 획과<br />마우스의 움직임을<br />시간 순서대로 담습니다.</p>
+            </div>
+            <svg class="path-art" viewBox="0 0 560 405" fill="none" aria-hidden="true">
+              <defs>
+                <pattern id="dot-grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#82a8a5" opacity=".6"/></pattern>
+                <linearGradient id="trace" x1="40" y1="0" x2="525" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#173d43"/><stop offset="1" stop-color="#368e8d"/></linearGradient>
+              </defs>
+              <rect x="0" y="0" width="560" height="405" fill="url(#dot-grid)"/>
+              <path d="M31 328C94 309 111 221 146 189c39-35 59 80 91 63 28-14 33-151 83-174 46-21 27 149 77 147 32-2 42-53 83-84 18-14 35-18 52-17" stroke="#b7d4d0" stroke-width="14" stroke-linecap="round" opacity=".65"/>
+              <path d="M31 328C94 309 111 221 146 189c39-35 59 80 91 63 28-14 33-151 83-174 46-21 27 149 77 147 32-2 42-53 83-84 18-14 35-18 52-17" stroke="url(#trace)" stroke-width="3.2" stroke-linecap="round"/>
+              <g fill="#f5c86c" stroke="#17464a" stroke-width="2"><circle cx="31" cy="328" r="6"/><circle cx="146" cy="189" r="6"/><circle cx="237" cy="252" r="6"/><circle cx="320" cy="78" r="6"/><circle cx="397" cy="225" r="6"/><circle cx="532" cy="124" r="6"/></g>
+              <path d="M31 349v21m206-96v57m160-84v79m135-180v59" stroke="#729c9a" stroke-width="1.2" stroke-dasharray="3 5"/>
+              <text x="38" y="377">t₀</text><text x="238" y="349">t₁</text><text x="398" y="347">t₂</text><text x="510" y="225">t₃</text>
+            </svg>
+            <div class="visual-footer">
+              <span>한 사람의 기록, 하나의 JSON 파일</span>
+              <span class="footer-dot" aria-hidden="true"></span>
+            </div>
+          </div>
+        </aside>
+
+        <section id="writing-view" class="writing-panel" hidden aria-labelledby="writing-title">
+          <div class="writing-topline">
+            <div class="section-marker"><span class="marker-line"></span> 과제 1 / 2</div>
+            <div class="participant-label">학생 아이디 <strong id="writing-id"></strong></div>
+          </div>
+          <h1 id="writing-title" tabindex="-1">문장을 따라 써 주세요.</h1>
+          <p class="writing-lead">아래 문장을 읽고, 마우스를 누른 채 빈 칸에 그대로 작성해 주세요. 여러 줄로 써도 됩니다.</p>
+
+          <div class="prompt-block" aria-labelledby="prompt-label">
+            <span id="prompt-label">따라 쓸 문장</span>
+            <p id="writing-prompt">상충하는 가설을 검증하려면 관찰 가능한 예측을 명시하고, 우연한 상관관계를 인과적 설명으로 오인하지 않도록 반례를 함께 검토해야 한다.</p>
+          </div>
+
+          <div class="canvas-heading">
+            <h2>손글씨 입력</h2>
+            <span class="recording-indicator"><span aria-hidden="true"></span> 기록 중</span>
+          </div>
+          <div id="canvas-scroll" class="canvas-scroll">
+            <canvas id="writing-canvas" width="1100" height="420" aria-label="마우스로 문장을 쓰는 영역" aria-describedby="canvas-help">브라우저가 캔버스를 지원하지 않습니다.</canvas>
+          </div>
+          <p id="canvas-help" class="canvas-help">마우스 왼쪽 버튼을 누른 채 움직이면 획이 기록됩니다. 이 단계에서는 새로고침하면 기록이 사라집니다.</p>
+
+          <div class="writing-actions">
+            <p id="stroke-status" aria-live="polite">아직 기록된 획이 없습니다.</p>
+            <button id="finish-writing" class="primary-button" type="button" disabled>
+              <span>문장 쓰기 완료</span>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section id="writing-complete-view" class="writing-complete-panel" hidden aria-labelledby="complete-title">
+          <div class="section-marker"><span class="marker-line"></span> 과제 1 / 2 완료</div>
+          <div class="ready-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5"/><path d="m14 24 7 7 13-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h1 id="complete-title" tabindex="-1">문장 쓰기를<br />마쳤습니다.</h1>
+          <p class="lead">손글씨 획의 순서, 좌표, 시각이 현재 페이지에 기록되었습니다.</p>
+          <div class="writing-summary">
+            <div><span>학생 아이디</span><strong id="complete-id"></strong></div>
+            <div><span>기록된 획</span><strong id="complete-strokes"></strong></div>
+            <div><span>소요 시간</span><strong id="complete-duration"></strong></div>
+          </div>
+          <p class="completion-note">다음 과제는 틀린 그림 찾기입니다. 과제를 모두 마칠 때까지 페이지를 닫거나 새로고침하지 마세요.</p>
+          <button id="start-search" class="primary-button next-task-button" type="button">
+            <span>틀린 그림 찾기 시작</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </section>
+
+        <section id="search-view" class="search-panel" hidden aria-labelledby="search-title">
+          <div class="writing-topline">
+            <div class="section-marker"><span class="marker-line"></span> 과제 2 / 2</div>
+            <div class="participant-label">학생 아이디 <strong id="search-id"></strong></div>
+          </div>
+          <h1 id="search-title" tabindex="-1">두 그림을 살펴보세요.</h1>
+          <p class="writing-lead">다른 부분을 찾아보세요. 찾은 곳을 클릭하거나 표시할 필요는 없습니다. 그림 위에서 움직인 마우스 경로만 기록됩니다.</p>
+          <div class="search-instruction"><span class="search-instruction-mark" aria-hidden="true"></span><p>충분히 살펴본 뒤 아래의 <strong>완료하고 JSON 다운로드</strong> 버튼을 누르세요.</p></div>
+          <div id="image-scroll" class="image-scroll">
+            <img id="search-image" src="./assets/spot-the-difference.png" width="1280" height="500" alt="대학 도서관 장면을 나란히 보여 주는 그림 A와 그림 B" draggable="false" />
+          </div>
+          <div class="search-actions">
+            <p id="search-status" role="status">그림을 불러오는 중입니다.</p>
+            <button id="finish-search" class="primary-button" type="button" disabled>
+              <span>완료하고 JSON 다운로드</span>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v10m-4-4 4 4 4-4M4 15v2h12v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section id="download-view" class="download-panel" hidden aria-labelledby="download-title">
+          <div class="section-marker"><span class="marker-line"></span> 두 과제 완료</div>
+          <div class="ready-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5"/><path d="m14 24 7 7 13-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h1 id="download-title" tabindex="-1">기록 파일을<br />확인해 주세요.</h1>
+          <p class="lead">두 과제의 JSON 파일 다운로드가 시작되었습니다. 브라우저의 다운로드 목록에서 파일이 저장되었는지 확인해 주세요.</p>
+          <div class="download-summary">
+            <div><span>학생 아이디</span><strong id="download-id"></strong></div>
+            <div><span>손글씨 획</span><strong id="download-strokes"></strong></div>
+            <div><span>마우스 위치</span><strong id="download-samples"></strong></div>
+          </div>
+          <p class="download-name">파일 이름 <strong id="download-filename"></strong></p>
+          <button id="download-again" class="primary-button download-again-button" type="button">
+            <span>JSON 다시 다운로드</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v10m-4-4 4 4 4-4M4 15v2h12v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
